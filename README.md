@@ -18,7 +18,7 @@ const client = new fns.Client({
   clientSecret: "<client secret>",
 });
 
-async function run() {
+async function main() {
   await client.login(LoginType.LKFL, {
     inn: "<your inn>",
     password: "<your password>",
@@ -31,7 +31,7 @@ async function run() {
   }
 }
 
-run.catch((err) => console.log(err));
+main.catch(console.error);
 ```
 
 ## License
