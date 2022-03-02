@@ -24,7 +24,7 @@ class SimpleTokens {
 
 }
 
-class EsiaOAuth2 {
+class OAuth2Esia {
 
 }
 
