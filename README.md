@@ -12,26 +12,26 @@ npm install fns-client
 
 ```js
 // App.js
-import * as fns from "fns-client";
+import * as fns from 'fns-client';
 
-const client = new fns.Client({
-  clientSecret: "<client secret>",
+const auth = new fns.LKFLAuth({
+  inn: '<your inn>',
+  password: '<your password>',
+  clientSecret: '<client secret>'
 });
 
-async function main() {
-  await client.login(LoginType.LKFL, {
-    inn: "<your inn>",
-    password: "<your password>",
-  });
-  const request = await client.addReceipt(qr);
-  const details = await client.getReceipt(request.id);
+const client = new fns.Client({ auth });
 
-  if (details.status.isSuccess()) {
-    console.log(details.receipt);
+async function main() {
+  const request = await client.addReceipt(qr);
+  const receipt = await client.getReceipt(request.id);
+
+  if (receipt.status.isSuccess()) {
+    console.log(receipt.details);
   }
 }
 
-main.catch(console.error);
+main().catch(console.error);
 ```
 
 ## License

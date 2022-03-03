@@ -1,55 +1,20 @@
-class FNSAuthLKFL {
-  constructor(inn: string, password: string, clientSecret: string) {
+import * as fns from '..';
 
-  }
+const auth = new fns.LKFLAuth({
+  inn: '<your inn>',
+  password: '<your password>',
+  clientSecret: '<client secret>'
+});
 
-  authenticate() {
+const client = new fns.Client({ auth });
 
-  }
+async function main() {
+  const request = await client.addReceipt(qr);
+  const receipt = await client.getReceipt(request.id);
 
-  refreshTokens() {
-
-  }
-
-  getAccessToken() {
-
-  }
-
-  clearTokens() {
-
+  if (receipt.status.isSuccess()) {
+    console.log(receipt.details);
   }
 }
 
-class SimpleTokens {
-
-}
-
-class OAuth2Esia {
-
-}
-
-class LKFL {
-
-}
-
-class TwoFactorByPhone {
-
-}
-
-
-class FNSClient {
-  constructor(auth: FNSAuthLKFL) {
-    // create axios
-    // auth intercepter
-    // add token intercepter
-    // add refresh intercepter
-  }
-}
-
-const auth = new FNSAuthLKFL('inn', 'pass', 'secret');
-const client = new FNSClient(auth);
-
-client.addReceipt(qr, options);
-client.getReceipt(id);
-client.removeReceipt();
-client.getRceiptList();
+main().catch(console.error);
