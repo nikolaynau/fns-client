@@ -5,27 +5,34 @@ import { AuthInterface } from './interfaces';
 export interface AuthProviderOptions {
   clientSecret: string;
   axios?: AxiosInstance;
+  loginApi?: LoginApiInterface;
 }
 
 export abstract class AuthProvider implements AuthInterface {
-  private readonly clientSecret: string;
-  private readonly loginApi: LoginApiInterface;
+  protected readonly clientSecret: string;
+  protected readonly loginApi: LoginApiInterface;
 
   protected accessToken: string | undefined;
   protected refreshToken: string | undefined;
 
   constructor(options: AuthProviderOptions) {
     this.clientSecret = options.clientSecret;
-    let axiosInstance = options.axios;
+    let loginApi = options.loginApi;
 
-    if (!axiosInstance) {
-      axiosInstance = axios.create({
-        baseURL: BASE_URL,
-        headers: defaultHeaders
-      });
+    if (!loginApi) {
+      let axiosInstance = options.axios;
+
+      if (!axiosInstance) {
+        axiosInstance = axios.create({
+          baseURL: BASE_URL,
+          headers: defaultHeaders
+        });
+      }
+
+      loginApi = new LoginApi(axiosInstance);
     }
 
-    this.loginApi = new LoginApi(axiosInstance);
+    this.loginApi = loginApi;
   }
 
   abstract authenticate(): Promise<void>;
@@ -35,6 +42,7 @@ export abstract class AuthProvider implements AuthInterface {
       refresh_token: this.refreshToken as string,
       client_secret: this.clientSecret
     });
+
     this.accessToken = data.sessionId;
     this.refreshToken = data.refresh_token;
   }
