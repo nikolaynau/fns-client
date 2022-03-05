@@ -1,10 +1,13 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, CancelToken } from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import {
   BASE_URL,
   defaultHeaders,
+  FiscalData,
   ReceiptApi,
-  ReceiptApiInterface
+  ReceiptApiInterface,
+  ReceiptDetails,
+  ReceiptShort
 } from 'fns-api';
 import { createAuthTokenIntercepter } from './auth.intercepter';
 import type { AuthInterface, ClientInterface } from './interfaces';
@@ -20,8 +23,8 @@ export class Client implements ClientInterface {
 
   constructor(options: ClientOptions) {
     this.auth = options.auth;
-    let axiosInstance = options.axios;
 
+    let axiosInstance = options.axios;
     if (!axiosInstance) {
       axiosInstance = axios.create({
         baseURL: BASE_URL,
@@ -37,19 +40,44 @@ export class Client implements ClientInterface {
     this.receiptApi = new ReceiptApi(axiosInstance);
   }
 
-  addReceipt(): Promise<any> {
-    throw new Error('Method not implemented.');
+  addReceipt(
+    fiscalData: FiscalData,
+    cancelToken?: CancelToken
+  ): Promise<ReceiptShort>;
+  addReceipt(qr: string, cancelToken?: CancelToken): Promise<ReceiptShort>;
+  async addReceipt(
+    fiscalDataOrQR: FiscalData | string,
+    cancelToken?: CancelToken
+  ): Promise<ReceiptShort> {
+    if (typeof fiscalDataOrQR === 'string') {
+      const response = await this.receiptApi.addReceiptQR(
+        { qr: fiscalDataOrQR },
+        cancelToken
+      );
+      return response.data;
+    } else {
+      const response = await this.receiptApi.addReceipt(
+        { fiscalData: fiscalDataOrQR, sendToEmail: false },
+        cancelToken
+      );
+      return response.data;
+    }
   }
 
-  getReceipt(): Promise<any> {
-    throw new Error('Method not implemented.');
+  async getReceipt(
+    id: string,
+    cancelToken?: CancelToken
+  ): Promise<ReceiptDetails> {
+    const response = await this.receiptApi.getReceipt(id, cancelToken);
+    return response.data;
   }
 
-  getRceiptList(): Promise<any> {
-    throw new Error('Method not implemented.');
+  async getReceipts(cancelToken?: CancelToken): Promise<ReceiptShort[]> {
+    const response = await this.receiptApi.getReceipts(cancelToken);
+    return response.data;
   }
 
-  removeReceipt(): Promise<any> {
-    throw new Error('Method not implemented.');
+  async removeReceipt(id: string, cancelToken?: CancelToken): Promise<void> {
+    await this.receiptApi.removeReceipt(id, cancelToken);
   }
 }

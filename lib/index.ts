@@ -3,3 +3,4 @@ export * from './interfaces';
 export * from './auth.intercepter';
 export * from './auth.provider';
 export * from './client';
+export * from './util';

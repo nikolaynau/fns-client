@@ -17,18 +17,16 @@ export abstract class AuthProvider implements AuthInterface {
 
   constructor(options: AuthProviderOptions) {
     this.clientSecret = options.clientSecret;
-    let loginApi = options.loginApi;
 
+    let loginApi = options.loginApi;
     if (!loginApi) {
       let axiosInstance = options.axios;
-
       if (!axiosInstance) {
         axiosInstance = axios.create({
           baseURL: BASE_URL,
           headers: defaultHeaders
         });
       }
-
       loginApi = new LoginApi(axiosInstance);
     }
 

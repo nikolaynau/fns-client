@@ -6,11 +6,25 @@ export interface LKFLAuthOptions extends AuthProviderOptions {
 }
 
 export class LKFLAuth extends AuthProvider {
+  private readonly inn: string;
+  private readonly password: string;
+
   constructor(options: LKFLAuthOptions) {
     super(options);
+    this.inn = options.inn;
+    this.password = options.password;
   }
 
-  authenticate(): Promise<void> {
-    throw new Error('Method not implemented.');
+  async authenticate(): Promise<void> {
+    const {
+      data: { sessionId, refresh_token }
+    } = await this.loginApi.loginLKFL({
+      inn: this.inn,
+      password: this.password,
+      client_secret: this.clientSecret
+    });
+
+    this.accessToken = sessionId;
+    this.refreshToken = refresh_token;
   }
 }

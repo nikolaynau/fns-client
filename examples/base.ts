@@ -1,19 +1,23 @@
 import * as fns from '..';
 
-const auth = new fns.LKFLAuth({
-  inn: '<your inn>',
-  password: '<your password>',
-  clientSecret: '<client secret>'
-});
+// Your INN from https://lkfl2.nalog.ru
+const inn = '<your inn>';
+// Your password from https://lkfl2.nalog.ru
+const password = '<your password>';
+// Client secret
+const clientSecret = '<client secret>';
+// QR-data string from the receipt
+const qr = '<your qr data scanned from the receipt>';
 
+const auth = new fns.LKFLAuth({ inn, password, clientSecret });
 const client = new fns.Client({ auth });
 
 async function main() {
-  const request = await client.addReceipt(qr);
-  const receipt = await client.getReceipt(request.id);
+  const response = await client.addReceipt(qr);
+  const receipt = await client.getReceipt(response.id);
 
-  if (receipt.status.isSuccess()) {
-    console.log(receipt.details);
+  if (fns.ReceiptStatusUtil.isSuccess(receipt.status)) {
+    console.log(receipt.ticket?.document.receipt);
   }
 }
 
