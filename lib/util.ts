@@ -7,14 +7,12 @@ export const ReceiptStatusUtil = {
       ReceiptStatus.HAVE_COPY.includes(status)
     );
   },
-
   isPending(status: number): boolean {
     return (
       ReceiptStatus.COPY_REQUESTED.includes(status) ||
       ReceiptStatus.HSM_REQUESTED.includes(status)
     );
   },
-
   isError(status: number): boolean {
     return (
       ReceiptStatus.NPD_NOT_FOUND.includes(status) ||
@@ -25,7 +23,6 @@ export const ReceiptStatusUtil = {
       ReceiptStatus.ERROR.includes(status)
     );
   },
-
   isOther(status: number): boolean {
     return (
       !this.isSuccess(status) &&
