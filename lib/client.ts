@@ -15,6 +15,7 @@ import type { AuthInterface, ClientInterface } from './interfaces';
 export interface ClientOptions {
   auth: AuthInterface;
   axios?: AxiosInstance;
+  receiptApi?: ReceiptApiInterface;
 }
 
 export class Client implements ClientInterface {
@@ -24,20 +25,25 @@ export class Client implements ClientInterface {
   constructor(options: ClientOptions) {
     this.auth = options.auth;
 
-    let axiosInstance = options.axios;
-    if (!axiosInstance) {
-      axiosInstance = axios.create({
-        baseURL: BASE_URL,
-        headers: defaultHeaders
-      });
+    let receiptApi = options.receiptApi;
+    if (!receiptApi) {
+      let axiosInstance = options.axios;
+      if (!axiosInstance) {
+        axiosInstance = axios.create({
+          baseURL: BASE_URL,
+          headers: defaultHeaders
+        });
+      }
+
+      createAuthTokenIntercepter(axiosInstance, this.auth);
+      createAuthRefreshInterceptor(axiosInstance, () =>
+        this.auth.refreshTokens()
+      );
+
+      receiptApi = new ReceiptApi(axiosInstance);
     }
 
-    createAuthTokenIntercepter(axiosInstance, this.auth);
-    createAuthRefreshInterceptor(axiosInstance, () =>
-      this.auth.refreshTokens()
-    );
-
-    this.receiptApi = new ReceiptApi(axiosInstance);
+    this.receiptApi = receiptApi;
   }
 
   addReceipt(

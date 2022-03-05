@@ -1,4 +1,4 @@
-import { AuthProvider } from '../../../lib/auth.provider';
+import { AuthProvider } from '../../..';
 
 export class AuthProviderMock extends AuthProvider {
   authenticateTokens?: { accessToken?: string; refreshToken?: string };
