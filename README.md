@@ -31,6 +31,8 @@ main().catch(console.error);
 
 ## Example
 
+Auth via the personal account of the FNS (https://lkfl2.nalog.ru)
+
 ```js
 import * as fns from 'fns-client';
 
