@@ -83,7 +83,7 @@ client
   .catch((e) => console.error(e));
 ```
 
-Next, you need to periodically poll the server to find out, if the receipt is available
+Next, you need to periodically poll the server to check status is successfully
 
 ```js
 const receiptId = '<your receipt id received when adding it>';
