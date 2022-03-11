@@ -73,6 +73,8 @@ client
   .catch((e) => console.error(e));
 ```
 
+We add a receipt according to the data from the QR-code on the receipt
+
 ```js
 // Add receipt by QR-data
 const qr = '<your qr data scanned from the receipt>';
