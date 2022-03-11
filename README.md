@@ -100,7 +100,7 @@ async function main() {
 main().catch(console.error);
 ```
 
-Since when you add a receipt, you create a request for it and must wait until the internal system receives detailed information about your receipt.
+Since when you add a receipt, you create a request for it and must wait, until the internal system receives detailed information about your receipt.
 
 See [examples](./examples) for more details.
 
