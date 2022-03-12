@@ -1,4 +1,4 @@
-# fns-client
+# fns-client [![npm version](https://img.shields.io/npm/v/fns-client.svg)](https://npmjs.org/package/fns-client) [![npm version](https://img.shields.io/npm/dm/fns-client.svg)](https://npmjs.org/package/fns-client)
 
 > Client for get receipts using the FNS API.
 
