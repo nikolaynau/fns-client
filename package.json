@@ -1,6 +1,6 @@
 {
   "name": "fns-client",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Client for get receipts using the FNS API.",
   "author": "Nikolay Naumenkov",
   "main": "index.js",
