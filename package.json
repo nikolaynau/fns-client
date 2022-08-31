@@ -36,7 +36,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "axios-auth-refresh": "^3.3.3",
-    "fns-api": "^1.0.5"
+    "fns-api": "^1.0.6"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
