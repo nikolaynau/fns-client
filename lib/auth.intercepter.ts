@@ -13,7 +13,7 @@ export function createAuthTokenIntercepter(
       }
 
       if (request.headers && authProvider.getAccessToken()) {
-        request.headers[SESSION_ID_HEADER] =
+        (request.headers as Record<string, string>)[SESSION_ID_HEADER] =
           authProvider.getAccessToken() as string;
       }
 

@@ -42,7 +42,7 @@ describe('Client (e2e)', () => {
     expect(receipts.length > 0).toBe(true);
 
     const actualReceipt = receipts.find(
-      (r) => r.id === receipt.id
+      r => r.id === receipt.id
     ) as ReceiptShort;
     expectIsDefined(actualReceipt);
   });
@@ -54,13 +54,13 @@ describe('Client (e2e)', () => {
     const receipts = await client.getReceipts();
     expect(Array.isArray(receipts)).toBe(true);
     expect(receipts.length > 0).toBe(true);
-    expectIsDefined(receipts.find((r) => r.id === receipt.id));
+    expectIsDefined(receipts.find(r => r.id === receipt.id));
 
     await client.removeReceipt(receipt.id);
 
     const newReceipts = await client.getReceipts();
     expect(Array.isArray(newReceipts)).toBe(true);
-    expect(newReceipts.find((r) => r.id === receipt.id)).toBeUndefined();
+    expect(newReceipts.find(r => r.id === receipt.id)).toBeUndefined();
   });
 
   it('getReceipt', async () => {

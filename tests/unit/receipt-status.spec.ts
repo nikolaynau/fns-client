@@ -46,6 +46,6 @@ function checkStatus(
 
 function getAllStatuses(): number[] {
   return Object.keys(ReceiptStatus)
-    .map((key) => (ReceiptStatus as any)[key])
+    .map(key => (ReceiptStatus as any)[key])
     .flat();
 }

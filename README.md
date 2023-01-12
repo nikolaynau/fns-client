@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-npm install fns-client
+npm install fns-client axios
 ```
 
 ## Usage
