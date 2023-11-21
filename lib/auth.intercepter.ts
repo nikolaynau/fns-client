@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { SESSION_ID_HEADER } from 'fns-api';
 import { AuthInterface } from './interfaces';
 
@@ -7,7 +7,7 @@ export function createAuthTokenIntercepter(
   authProvider: AuthInterface
 ): number {
   return instance.interceptors.request.use(
-    async (request: AxiosRequestConfig) => {
+    async (request: InternalAxiosRequestConfig) => {
       if (!authProvider.getAccessToken()) {
         await authProvider.authenticate();
       }

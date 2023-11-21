@@ -10,7 +10,7 @@ describe('createAuthTokenIntercepter', () => {
   const testPath = '/path';
   let axiosInstance: AxiosInstance;
   let mockAuthProvider: AuthProviderMock;
-  let mockAxiosInstance: MockAdapter;
+  let mockAxiosInstance: any;
 
   beforeEach(() => {
     axiosInstance = axios.create();

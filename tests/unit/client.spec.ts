@@ -23,8 +23,8 @@ describe('Client', () => {
   const addReceiptPath = 'v2/ticket';
   let authAxios: AxiosInstance;
   let clientAxios: AxiosInstance;
-  let mockAuthAxios: MockAdapter;
-  let mockClientAxios: MockAdapter;
+  let mockAuthAxios: any;
+  let mockClientAxios: any;
   let auth: LKFLAuth;
   let client: Client;
 
